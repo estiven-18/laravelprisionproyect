@@ -19,10 +19,10 @@ class DatabaseSeeder extends Seeder
         // USERS
         DB::table('users')->insert([
             [
-                'name'       => 'Carlos Ramirez',
+                'name'       => 'Admin User',
                 'id_number'  => '1020304050',
-                'email'      => 'carlos@prison.com', 
-                'password'   => Hash::make('password123'),
+                'email'      => 'admin@gmail.com', 
+                'password'   => Hash::make('1'),
                 'rol_id'     => 1,
                 'state'      => 'active',
                 'created_at' => now(),
