@@ -1,7 +1,7 @@
 <?php
 
-use App\Providers\AppServiceProvider;
-
+//sirve para registrar los proveedores de servicios de la aplicación, como el AppServiceProvider y el EventServiceProvider
 return [
-    AppServiceProvider::class,
+    App\Providers\AppServiceProvider::class,
+    App\Providers\EventServiceProvider::class,
 ];
