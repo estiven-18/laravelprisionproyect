@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -20,8 +21,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'id_number',
         'email',
         'password',
+        'rol_id',
+        'state',
     ];
 
     /**
@@ -45,5 +49,28 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function rol(): BelongsTo
+    {
+        return $this->belongsTo(Rol::class);
+    }
+
+    public function isAdmin(): bool
+    {
+        if ((int) $this->rol_id === 1) {
+            return true;
+        }
+
+        return strtolower((string) optional($this->rol)->name) === 'admin';
+    }
+
+    public function isGuard(): bool
+    {
+        if ((int) $this->rol_id === 2) {
+            return true;
+        }
+
+        return strtolower((string) optional($this->rol)->name) === 'guard';
     }
 }

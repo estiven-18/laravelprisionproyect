@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\VisitController;
 
@@ -30,6 +31,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/visits/{visit}', [VisitController::class, 'update'])->name('visits.update');
     Route::delete('/visits/{visit}', [VisitController::class, 'destroy'])->name('visits.destroy');
 
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/pdf', [ReportController::class, 'downloadPdf'])->name('reports.pdf');
+    Route::get('/reports/excel', [ReportController::class, 'downloadExcel'])->name('reports.excel');
 });
 
 
