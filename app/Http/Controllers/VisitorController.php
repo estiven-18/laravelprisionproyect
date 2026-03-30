@@ -21,11 +21,11 @@ class VisitorController extends Controller
             'id_number' => 'required|unique:visitors,id_number',
             'relationship_to_prisoner' => 'required',
         ], [
-            'id_number.unique' => 'Este visitante ya está registrado'
+            'id_number.unique' => 'This ID number is already registered for another visitor.',
         ]);
 
         Visitor::create($request->all());
 
-        return back()->with('success', 'Visitante registrado correctamente');
+        return back()->with('success', 'Visitor registered successfully');
     }
 }

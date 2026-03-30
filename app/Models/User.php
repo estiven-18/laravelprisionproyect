@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
 
 /**
  * Class User
@@ -23,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class User extends Model
+class User extends Authenticatable
 {
     
     protected $perPage = 20;
@@ -33,7 +35,7 @@ class User extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name', 'id_number', 'email', 'rol_id', 'state'];
+    protected $fillable = ['name', 'id_number', 'email', 'password', 'rol_id', 'state'];
 
 
     /**
@@ -60,4 +62,8 @@ class User extends Model
         return $this->hasMany(\App\Models\Visit::class, 'id', 'user_id');
     }
     
+    public function isAdmin()
+    {
+        return $this->rol && strtolower($this->rol->name) === 'admin';
+    }
 }
