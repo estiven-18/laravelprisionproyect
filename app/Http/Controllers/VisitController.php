@@ -8,6 +8,7 @@ use App\Models\Prisoner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+// sirve para las validaciones de fecha y hora
 use Carbon\Carbon;
 
 class VisitController extends Controller
@@ -15,6 +16,7 @@ class VisitController extends Controller
     public function index()
     {
         $visits = Visit::with(['visitor', 'prisoner', 'assignedGuard'])
+            ->where('state', 'active')
             ->orderByDesc('date')
             ->orderByDesc('start_time')
             ->get();
