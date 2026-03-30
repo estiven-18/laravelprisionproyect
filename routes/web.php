@@ -7,6 +7,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\UserController;
+use App\Http\prisioner\PrisionerController;
 
 
 
@@ -41,6 +42,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/reports/pdf', [ReportController::class, 'downloadPdf'])->name('reports.pdf');
     Route::get('/reports/excel', [ReportController::class, 'downloadExcel'])->name('reports.excel');
     Route::resource('users', UserController::class);
+    Route::resource('prisoners', PrisonerController::class);
 });
 
 
