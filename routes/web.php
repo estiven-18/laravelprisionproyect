@@ -7,7 +7,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\UserController;
-use App\Http\prisioner\PrisionerController;
+use App\Http\Controllers\PrisonerController;
 
 
 

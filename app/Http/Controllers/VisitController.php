@@ -27,7 +27,7 @@ class VisitController extends Controller
     public function create()
     {
         $visitors = Visitor::all();
-        $prisoners = Prisoner::all();
+        $prisoners = Prisoner::where('state', 'active')->orderBy('name')->get();
 
         return view('visits.create', compact('visitors', 'prisoners'));
     }
@@ -42,7 +42,7 @@ class VisitController extends Controller
     public function edit(Visit $visit)
     {
         $visitors = Visitor::all();
-        $prisoners = Prisoner::all();
+        $prisoners = Prisoner::where('state', 'active')->orderBy('name')->get();
 
         return view('visits.edit', compact('visit', 'visitors', 'prisoners'));
     }

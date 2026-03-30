@@ -92,7 +92,9 @@ class ReportController extends Controller
             ->orderBy('start_time')
             ->get();
 
-        $prisoners = Prisoner::orderBy('name')->get();
+        $prisoners = Prisoner::where('state', 'active')
+            ->orderBy('name')
+            ->get();
 
         return [
             'visits' => $visits,

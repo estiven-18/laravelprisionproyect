@@ -16,7 +16,9 @@ class PrisonerController extends Controller
      */
     public function index(Request $request): View
     {
-        $prisoners = Prisoner::paginate();
+        $prisoners = Prisoner::where('state', 'active')
+            ->orderByDesc('id')
+            ->paginate();
 
         return view('prisoner.index', compact('prisoners'))
             ->with('i', ($request->input('page', 1) - 1) * $prisoners->perPage());
@@ -76,7 +78,9 @@ class PrisonerController extends Controller
 
     public function destroy($id): RedirectResponse
     {
-        Prisoner::find($id)->delete();
+        Prisoner::findOrFail($id)->update([
+            'state' => 'deleted',
+        ]);
 
         return Redirect::route('prisoners.index')
             ->with('success', 'Prisoner deleted successfully');

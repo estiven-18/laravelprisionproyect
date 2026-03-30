@@ -1,72 +1,94 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Prisoners') }}
-        </h2>
+        <div class="flex items-center justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                {{ __('Prisoners List') }}
+            </h2>
+
+            <a
+                href="{{ route('prisoners.create') }}"
+                class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-500 focus:bg-indigo-500 active:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
+            >
+                {{ __('New Prisoner') }}
+            </a>
+        </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-full mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="w-full">
-                    <div class="sm:flex sm:items-center">
-                        <div class="sm:flex-auto">
-                            <h1 class="text-base font-semibold leading-6 text-gray-900">{{ __('Prisoners') }}</h1>
-                            <p class="mt-2 text-sm text-gray-700">A list of all the {{ __('Prisoners') }}.</p>
-                        </div>
-                        <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                            <a type="button" href="{{ route('prisoners.create') }}" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Add new</a>
-                        </div>
-                    </div>
+    <div class="py-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if (session('success'))
+                <div class="mb-4 rounded-md bg-green-100 border border-green-200 p-4 text-green-700">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-                    <div class="flow-root">
-                        <div class="mt-8 overflow-x-auto">
-                            <div class="inline-block min-w-full py-2 align-middle">
-                                <table class="w-full divide-y divide-gray-300">
-                                    <thead>
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead class="bg-gray-50 dark:bg-gray-700">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">#</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Name</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Birth Date</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Entry</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Crime</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Cell</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                @forelse ($prisoners as $prisoner)
                                     <tr>
-                                        <th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">No</th>
-                                        
-									<th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Name</th>
-									<th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Birth Date</th>
-									<th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Entry Datetime</th>
-									<th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Crime</th>
-									<th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Cell</th>
-									<th scope="col" class="py-3 pl-4 pr-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">State</th>
+                                        <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{{ $prisoner->id }}</td>
+                                        <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{{ $prisoner->name }}</td>
+                                        <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{{ $prisoner->birth_date }}</td>
+                                        <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{{ $prisoner->entry_datetime }}</td>
+                                        <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{{ $prisoner->crime }}</td>
+                                        <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{{ $prisoner->cell }}</td>
+                                        <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{{ ucfirst($prisoner->state) }}</td>
+                                        <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
+                                            <div class="flex items-center gap-2">
+                                                <a
+                                                    href="{{ route('prisoners.show', $prisoner) }}"
+                                                    class="inline-flex items-center px-3 py-1.5 bg-blue-600 border border-transparent rounded-md text-xs text-white uppercase tracking-widest hover:bg-blue-500"
+                                                >
+                                                    View
+                                                </a>
 
-                                        <th scope="col" class="px-3 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500"></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-gray-200 bg-white">
-                                    @foreach ($prisoners as $prisoner)
-                                        <tr class="even:bg-gray-50">
-                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-semibold text-gray-900">{{ ++$i }}</td>
-                                            
-										<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $prisoner->name }}</td>
-										<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $prisoner->birth_date }}</td>
-										<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $prisoner->entry_datetime }}</td>
-										<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $prisoner->crime }}</td>
-										<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $prisoner->cell }}</td>
-										<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $prisoner->state }}</td>
+                                                <a
+                                                    href="{{ route('prisoners.edit', $prisoner) }}"
+                                                    class="inline-flex items-center px-3 py-1.5 bg-amber-500 border border-transparent rounded-md text-xs text-white uppercase tracking-widest hover:bg-amber-400"
+                                                >
+                                                    Edit
+                                                </a>
 
-                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
-                                                <form action="{{ route('prisoners.destroy', $prisoner->id) }}" method="POST">
-                                                    <a href="{{ route('prisoners.show', $prisoner->id) }}" class="text-gray-600 font-bold hover:text-gray-900 mr-2">{{ __('Show') }}</a>
-                                                    <a href="{{ route('prisoners.edit', $prisoner->id) }}" class="text-indigo-600 font-bold hover:text-indigo-900  mr-2">{{ __('Edit') }}</a>
+                                                <form method="POST" action="{{ route('prisoners.destroy', $prisoner) }}" onsubmit="return confirm('Are you sure you want to delete this prisoner?');">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <a href="{{ route('prisoners.destroy', $prisoner->id) }}" class="text-red-600 font-bold hover:text-red-900" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;">{{ __('Delete') }}</a>
+                                                    <button
+                                                        type="submit"
+                                                        class="inline-flex items-center px-3 py-1.5 bg-red-600 border border-transparent rounded-md text-xs text-white uppercase tracking-widest hover:bg-red-500"
+                                                    >
+                                                        Delete
+                                                    </button>
                                                 </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="8" class="px-4 py-6 text-center text-sm text-gray-500 dark:text-gray-300">
+                                            {{ __('No prisoners registered yet.') }}
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
 
-                                <div class="mt-4 px-4">
-                                    {!! $prisoners->withQueryString()->links() !!}
-                                </div>
-                            </div>
+                        <div class="mt-4">
+                            {!! $prisoners->withQueryString()->links() !!}
                         </div>
                     </div>
                 </div>

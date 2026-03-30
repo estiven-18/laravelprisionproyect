@@ -1,59 +1,58 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $prisoner->name ?? __('Show') . " " . __('Prisoner') }}
-        </h2>
+        <div class="flex items-center justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                {{ __('Prisoner Detail') }}
+            </h2>
+
+            <div class="flex items-center gap-2">
+                <a
+                    href="{{ route('prisoners.index') }}"
+                    class="inline-flex items-center px-4 py-2 bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-gray-800 uppercase tracking-widest hover:bg-gray-300"
+                >
+                    {{ __('Back') }}
+                </a>
+            </div>
+        </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-full mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="w-full">
-                    <div class="sm:flex sm:items-center">
-                        <div class="sm:flex-auto">
-                            <h1 class="text-base font-semibold leading-6 text-gray-900">{{ __('Show') }} Prisoner</h1>
-                            <p class="mt-2 text-sm text-gray-700">Details of {{ __('Prisoner') }}.</p>
-                        </div>
-                        <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                            <a type="button" href="{{ route('prisoners.index') }}" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Back</a>
-                        </div>
+    <div class="py-8">
+        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">ID</p>
+                        <p class="text-base text-gray-900 dark:text-gray-100">{{ $prisoner->id }}</p>
                     </div>
 
-                    <div class="flow-root">
-                        <div class="mt-8 overflow-x-auto">
-                            <div class="inline-block min-w-full py-2 align-middle">
-                                <div class="mt-6 border-t border-gray-100">
-                                    <dl class="divide-y divide-gray-100">
-                                        
-                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                    <dt class="text-sm font-medium leading-6 text-gray-900">Name</dt>
-                                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $prisoner->name }}</dd>
-                                </div>
-                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                    <dt class="text-sm font-medium leading-6 text-gray-900">Birth Date</dt>
-                                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $prisoner->birth_date }}</dd>
-                                </div>
-                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                    <dt class="text-sm font-medium leading-6 text-gray-900">Entry Datetime</dt>
-                                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $prisoner->entry_datetime }}</dd>
-                                </div>
-                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                    <dt class="text-sm font-medium leading-6 text-gray-900">Crime</dt>
-                                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $prisoner->crime }}</dd>
-                                </div>
-                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                    <dt class="text-sm font-medium leading-6 text-gray-900">Cell</dt>
-                                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $prisoner->cell }}</dd>
-                                </div>
-                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                    <dt class="text-sm font-medium leading-6 text-gray-900">State</dt>
-                                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ $prisoner->state }}</dd>
-                                </div>
+                    <div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Status</p>
+                        <p class="text-base text-gray-900 dark:text-gray-100">{{ ucfirst($prisoner->state) }}</p>
+                    </div>
 
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
+                    <div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Name</p>
+                        <p class="text-base text-gray-900 dark:text-gray-100">{{ $prisoner->name }}</p>
+                    </div>
+
+                    <div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Birth Date</p>
+                        <p class="text-base text-gray-900 dark:text-gray-100">{{ $prisoner->birth_date }}</p>
+                    </div>
+
+                    <div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Entry DateTime</p>
+                        <p class="text-base text-gray-900 dark:text-gray-100">{{ $prisoner->entry_datetime }}</p>
+                    </div>
+
+                    <div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Cell</p>
+                        <p class="text-base text-gray-900 dark:text-gray-100">{{ $prisoner->cell }}</p>
+                    </div>
+
+                    <div class="sm:col-span-2">
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Crime</p>
+                        <p class="text-base text-gray-900 dark:text-gray-100">{{ $prisoner->crime }}</p>
                     </div>
                 </div>
             </div>
