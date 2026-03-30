@@ -7,6 +7,8 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\VisitController;
 
+Route::resource('users', UserController::class);
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -37,6 +39,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
     Route::get('/reports/pdf', [ReportController::class, 'downloadPdf'])->name('reports.pdf');
     Route::get('/reports/excel', [ReportController::class, 'downloadExcel'])->name('reports.excel');
+    Route::resource('users', UserController::class);
 });
 
 
