@@ -25,6 +25,12 @@
                     </x-nav-link>
                 </div>
 
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('visitors.index')" :active="request()->routeIs('visitors.*')">
+                        {{ __('Visitors') }}
+                    </x-nav-link>
+                </div>
+
                 @if (Auth::user()?->isAdmin())
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.*')">
@@ -102,6 +108,10 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('visits.index')" :active="request()->routeIs('visits.*')">
                 {{ __('Visits') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('visitors.index')" :active="request()->routeIs('visitors.*')">
+                {{ __('Visitors') }}
             </x-responsive-nav-link>
 
             @if (Auth::user()?->isAdmin())

@@ -2,30 +2,87 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Visitor;
+use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Http\Requests\VisitorRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 
 class VisitorController extends Controller
 {
-    // Mostrar formulario
-    public function create()
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request): View
     {
-        return view('visitors.create');
+        $visitors = Visitor::where('state', 'active')
+            ->orderByDesc('id')
+            ->paginate();
+
+        return view('visitors.index', compact('visitors'))
+            ->with('i', ($request->input('page', 1) - 1) * $visitors->perPage());
     }
 
-    // Guardar visitante
-    public function store(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(): View
     {
-        $request->validate([
-            'name' => 'required',
-            'id_number' => 'required|unique:visitors,id_number',
-            'relationship_to_prisoner' => 'required',
-        ], [
-            'id_number.unique' => 'This ID number is already registered for another visitor.',
+        $visitor = new Visitor();
+
+        return view('visitors.create', compact('visitor'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(VisitorRequest $request): RedirectResponse
+    {
+        Visitor::create($request->validated());
+
+        return Redirect::route('visitors.index')
+            ->with('success', 'Visitor created successfully.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show($id): View
+    {
+        $visitor = Visitor::find($id);
+
+        return view('visitors.show', compact('visitor'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id): View
+    {
+        $visitor = Visitor::find($id);
+
+        return view('visitors.edit', compact('visitor'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(VisitorRequest $request, Visitor $visitor): RedirectResponse
+    {
+        $visitor->update($request->validated());
+
+        return Redirect::route('visitors.index')
+            ->with('success', 'Visitor updated successfully');
+    }
+
+    public function destroy($id): RedirectResponse
+    {
+        Visitor::findOrFail($id)->update([
+            'state' => 'deleted',
         ]);
 
-        Visitor::create($request->all());
-
-        return back()->with('success', 'Visitor registered successfully');
+        return Redirect::route('visitors.index')
+            ->with('success', 'Visitor deleted successfully');
     }
 }

@@ -25,6 +25,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/visitors/create', [VisitorController::class, 'create'])->name('visitors.create');
+Route::post('/visitors', [VisitorController::class, 'store'])->name('visitors.store');
+
 Route::middleware('auth')->group(function () {
 
     Route::get('/visits', [VisitController::class, 'index'])->name('visits.index');
@@ -34,6 +37,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/visits/{visit}/edit', [VisitController::class, 'edit'])->name('visits.edit');
     Route::patch('/visits/{visit}', [VisitController::class, 'update'])->name('visits.update');
     Route::delete('/visits/{visit}', [VisitController::class, 'destroy'])->name('visits.destroy');
+    Route::resource('visitors', VisitorController::class)
+        ->except(['create', 'store'])
+        ->whereNumber('visitor');
 
 });
 
@@ -44,10 +50,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('prisoners', PrisonerController::class);
 });
-
-
-Route::get('/visitors/create', [VisitorController::class, 'create']);
-Route::post('/visitors', [VisitorController::class, 'store']);
 
 
 require __DIR__.'/auth.php';

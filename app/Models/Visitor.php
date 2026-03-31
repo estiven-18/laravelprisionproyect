@@ -10,5 +10,6 @@ class Visitor extends Model
         'name',
         'id_number',
         'relationship_to_prisoner',
+        'state',
     ];
 }
