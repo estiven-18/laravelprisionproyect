@@ -10,12 +10,27 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PrisonerController;
 
 
+//ruta para contadores
+use App\Models\Visit;
+use App\Models\User;
+use App\Models\Prisoner;
+
 
 Route::redirect('/', '/login');
 
+//contador de rutas
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard', [
+        'visitas'     => Visit::count(),
+        'guardias'    => User::whereHas('rol', fn($q) => $q->where('name', 'Guard'))->count(),
+        'prisioneros' => Prisoner::count(),
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

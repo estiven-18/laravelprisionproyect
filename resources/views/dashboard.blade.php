@@ -19,7 +19,7 @@
             </div>
 
             {{-- Tarjetas de estadísticas --}}
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
                 <div class="bg-green-500 text-white p-6 rounded-lg shadow">
                     <h4 class="text-sm">Visitas</h4>
@@ -36,21 +36,6 @@
                     <p class="text-2xl font-bold">{{ $prisioneros ?? 0 }}</p>
                 </div>
 
-            </div>
-
-             {{-- Gráficos --}}
-             <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">
-                    Estadísticas Mensuales
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <canvas id="visitasChart"></canvas>
-                    </div>
-                    <div>
-                        <canvas id="guardiasChart"></canvas>
-                    </div>
-                </div>
             </div>
 
         </div>
