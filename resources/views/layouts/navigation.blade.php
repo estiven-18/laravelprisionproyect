@@ -124,8 +124,6 @@
                 {{ __('Guards') }}
             </x-responsive-nav-link>
 
-
-            
             <x-responsive-nav-link :href="route('prisoners.index')" :active="request()->routeIs('prisoners.*')">
                 {{ __('Prisoners') }}
             </x-responsive-nav-link>
