@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Panel de Control
+            {{ __('Dashboard') }}
         </h2>
     </x-slot>
 
@@ -11,10 +11,10 @@
             {{-- Bienvenida --}}
             <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6">
                 <h3 class="text-lg font-bold text-gray-900 dark:text-white">
-                    Bienvenido, {{ auth()->user()->name }}
+                    Welcome, {{ auth()->user()->name }}
                 </h3>
                 <p class="text-gray-600 dark:text-gray-300">
-                    Aquí tienes un resumen del sistema.
+                    Here you have a summary of the system.
                 </p>
             </div>
 
@@ -22,17 +22,17 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
                 <div class="bg-green-500 text-white p-6 rounded-lg shadow">
-                    <h4 class="text-sm">Visitas</h4>
+                    <h4 class="text-sm">Visits</h4>
                     <p class="text-2xl font-bold">{{ $visitas ?? 0 }}</p>
                 </div>
 
                 <div class="bg-yellow-500 text-white p-6 rounded-lg shadow">
-                    <h4 class="text-sm">Guardias</h4>
+                    <h4 class="text-sm">Guards</h4>
                     <p class="text-2xl font-bold">{{ $guardias ?? 0 }}</p>
                 </div>
 
                 <div class="bg-red-500 text-white p-6 rounded-lg shadow">
-                    <h4 class="text-sm">Prisioneros</h4>
+                    <h4 class="text-sm">Prisoners</h4>
                     <p class="text-2xl font-bold">{{ $prisioneros ?? 0 }}</p>
                 </div>
 
