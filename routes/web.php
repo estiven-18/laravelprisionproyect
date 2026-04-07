@@ -8,6 +8,8 @@ use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PrisonerController;
+use App\Http\Controllers\GuardSessionController;
+
 
 
 //ruta para contadores
@@ -62,6 +64,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/reports/excel', [ReportController::class, 'downloadExcel'])->name('reports.excel');
     Route::resource('users', UserController::class);
     Route::resource('prisoners', PrisonerController::class);
+    Route::resource('guard_sessions', GuardSessionController::class);
 });
 
 
