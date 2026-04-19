@@ -17,7 +17,7 @@ class GuardSessionController extends Controller
     public function index(Request $request): View
     {
         $guardSessions = GuardSession::with('user')->paginate();
-
+ 
         return view('guard-session.index', compact('guardSessions'))
             ->with('i', ($request->input('page', 1) - 1) * $guardSessions->perPage());
     }
